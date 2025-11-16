@@ -5,6 +5,7 @@
             <class name="com.chirangv.tests.HomePageTest"/>
             <class name="com.chirangv.tests.LoginPageTest"/>
             <class name="com.chirangv.tests.DeveloperPageTest"/>
+            <class name="com.chirangv.tests.EndToEndTest"/>
         </classes>
     </test>
 </suite>
