@@ -1,0 +1,97 @@
+{
+  "testUsers": [
+    {
+      "userType": "validUser",
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "username": "johndoe",
+      "password": "Test@123456",
+      "phone": "+1-234-567-8900"
+    },
+    {
+      "userType": "invalidUser",
+      "name": "Jane Smith",
+      "email": "invalid-email",
+      "username": "janesmith",
+      "password": "weak",
+      "phone": "123"
+    },
+    {
+      "userType": "adminUser",
+      "name": "Admin User",
+      "email": "admin@chirangv.com",
+      "username": "admin",
+      "password": "Admin@123456",
+      "phone": "+1-555-000-0000"
+    }
+  ],
+  "loginCredentials": [
+    {
+      "email": "testuser@example.com",
+      "password": "ValidPass@123",
+      "expectedResult": "success"
+    },
+    {
+      "email": "wronguser@example.com",
+      "password": "WrongPass@123",
+      "expectedResult": "failure"
+    },
+    {
+      "email": "invalid-email",
+      "password": "Test@123",
+      "expectedResult": "validation_error"
+    },
+    {
+      "email": "",
+      "password": "",
+      "expectedResult": "empty_fields"
+    }
+  ],
+  "navigationLinks": [
+    {
+      "name": "Home",
+      "url": "https://dev.chirangv.com/",
+      "displayText": "Home"
+    },
+    {
+      "name": "Developer",
+      "url": "https://dev.chirangv.com/developer",
+      "displayText": "Developer"
+    },
+    {
+      "name": "Login",
+      "url": "https://dev.chirangv.com/login",
+      "displayText": "Login"
+    }
+  ],
+  "pageValidations": {
+    "homePage": {
+      "url": "https://dev.chirangv.com/",
+      "title": "Hello! I'm Chiran",
+      "expectedElements": [
+        "Join My Circle",
+        "A Little About Me",
+        "Who I Am",
+        "What I Do"
+      ]
+    },
+    "developerPage": {
+      "url": "https://dev.chirangv.com/developer",
+      "title": "Developer Portfolio",
+      "expectedElements": [
+        "Technical Expertise",
+        "Full-Stack Development",
+        "Developer Resources"
+      ]
+    },
+    "loginPage": {
+      "url": "https://dev.chirangv.com/login",
+      "title": "Sign in to your account",
+      "expectedElements": [
+        "Email address",
+        "Password",
+        "Sign in"
+      ]
+    }
+  }
+}
