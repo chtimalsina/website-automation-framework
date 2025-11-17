@@ -1,0 +1,1 @@
+Dashboard not accessible - may require specific permissions
