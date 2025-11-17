@@ -159,11 +159,30 @@ public class EndToEndTest extends BaseTest {
 
         loginPage.login(email, password);
 
-        // Wait for potential navigation after login
-        page.waitForTimeout(2000);
+        // Wait for navigation after login
+        page.waitForTimeout(3000);
 
-        logger.info("Login attempted for: " + email);
-        Allure.addAttachment("Login Info", "User: " + name + "\nEmail: " + email);
+        // CRITICAL: Verify login success/failure
+        String currentUrl = page.url();
+        boolean isStillOnLoginPage = currentUrl.contains("/login");
+
+        if (isStillOnLoginPage) {
+            // Check for error messages
+            boolean hasErrorMessage = page.locator("text=/error|invalid|incorrect|failed/i").count() > 0;
+
+            if (hasErrorMessage) {
+                String errorText = page.locator("text=/error|invalid|incorrect|failed/i").first().textContent();
+                logger.error("Login failed with error: " + errorText);
+                Allure.addAttachment("Login Error", errorText);
+                Assert.fail("Login failed for user: " + name + ". Error: " + errorText);
+            } else {
+                Assert.fail("Login failed: User " + name + " is still on login page after login attempt.");
+            }
+        } else {
+            logger.info("Login successful for: " + email + ". Navigated to: " + currentUrl);
+            Allure.addAttachment("Login Success",
+                    "User: " + name + "\nEmail: " + email + "\nRedirected to: " + currentUrl);
+        }
     }
 
     @Step("Step 2: Explore Home Page")
