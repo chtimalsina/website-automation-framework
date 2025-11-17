@@ -28,8 +28,16 @@ public class BaseTest {
         logger.info("Setting up Playwright and Browser");
         playwright = Playwright.create();
 
+        // Auto-detect CI environment and force headless mode
+        boolean isCI = System.getenv("CI") != null || System.getenv("GITHUB_ACTIONS") != null;
+        boolean headless = isCI || ConfigReader.isHeadless();
+
+        if (isCI) {
+            logger.info("CI environment detected - running in headless mode");
+        }
+
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
-                .setHeadless(ConfigReader.isHeadless())
+                .setHeadless(headless)
                 .setSlowMo(Integer.parseInt(ConfigReader.getProperty("slowMo")));
 
         String browserType = ConfigReader.getBrowser();
@@ -44,7 +52,7 @@ public class BaseTest {
                 browser = playwright.chromium().launch(launchOptions);
         }
 
-        logger.info("Browser launched: " + browserType);
+        logger.info("Browser launched: " + browserType + " (headless: " + headless + ")");
     }
 
     @BeforeMethod
